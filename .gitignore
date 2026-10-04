@@ -1,0 +1,63 @@
+# ─────────────────────────────────────────────────────────────
+# 轻阅 · .gitignore
+#
+# 原则：**只提交"源"**。凡是能被 `scripts/build.sh` 重新生成的、
+# 或者是本机运行产生的东西，一律不进仓库。
+# ─────────────────────────────────────────────────────────────
+
+# ── 构建产物（20MB+，随时可重新生成）──
+build/
+*.o
+*.dSYM/
+
+# ── 本机运行产生 ──
+# 界面截图：13MB，且每台机器都不一样。README 里放 2–3 张就够了。
+screenshots/
+
+# 抽样探针的报告（每次跑都会覆盖，且含本机绝对路径）
+*.log
+*.kc.log
+
+# 一次性迁移脚本的产物（migrate_onchange / tokenize_design 跑完就无用了）
+*.bak
+*-backup-*
+
+# ── AI 相关的本地痕迹 ──
+# ⚠️ 密钥实际存在 Application Support，不在仓库里；
+# 但保险起见把常见名字都排掉，习惯要养好。
+secrets.json
+*.secrets
+.env
+.env.*
+!.env.example
+
+# ── 工具缓存 ──
+# impeccable 的设计评审快照：属于"某次会话的记录"，不是项目的一部分。
+# 想保留设计上下文的话，把 DESIGN.md 之类的**结论**写进文档，而不是留原始快照。
+.impeccable/
+
+# WorkBuddy / Agent 的工作区状态：每个开发者都不一样，且含绝对路径
+.workbuddy/
+
+# ── macOS ──
+# ⚠️ .DS_Store 一定要排掉：Finder 会往每个目录塞一个，
+# 提交上去就是"这个项目很脏"的第一印象。
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+# ── 编辑器 ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Python（脚本用不到，但保险）──
+__pycache__/
+*.pyc
+.venv/
+venv/
