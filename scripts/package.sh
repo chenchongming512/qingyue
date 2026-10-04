@@ -14,7 +14,13 @@ set -e
 cd "$(dirname "$0")/.."
 
 APP="build/轻阅.app"
-[[ -d "$APP" ]] || { echo "✗ 先跑 scripts/build.sh --app"; exit 1 }
+if [[ ! -d "$APP" ]]; then
+  # ⚠️ 提示要说清**为什么**失败：裸 `build.sh` 只编二进制，不产出 .app。
+  # 我自己在验证时就在这儿踩了一次（没加 --app，包没打出来还以为脚本坏了）。
+  echo "✗ 还没有 $APP"
+  echo "  先跑：scripts/build.sh --app   ← 注意要带 --app，只编二进制是不够的"
+  exit 1
+fi
 
 # 版本号：优先取命令行参数，否则从 build.sh 里抠出来
 VER="${1:-}"
